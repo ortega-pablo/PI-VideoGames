@@ -126,7 +126,7 @@ const transformToString = (iterador) => {
 const getApiVideogameById = async (id) => {
 
     const apiSearch = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-    const videogameById = [{
+    const videogameById = {
       id: apiSearch.data.id,
       name: apiSearch.data.name,
       released: apiSearch.data.released,
@@ -141,7 +141,7 @@ const getApiVideogameById = async (id) => {
           name: g.name,
         };
       }),
-    }]
+    }
   return videogameById
 }
 

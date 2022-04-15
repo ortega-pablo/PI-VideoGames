@@ -12,7 +12,6 @@ router.get("/", async (req, res, next) => {
       let videogamesByName = await getVideogamesByName(name)
       let filteredVideogames = videogamesByName.filter(v => v.name.toLowerCase().includes(name.toLowerCase()))
       if(filteredVideogames.length >= 1){
-      if(filteredVideogames.length >= 1){
       await  filteredVideogames.sort((o1, o2) => {
           if(o1.name.length > o2.name.length){
             return 1
@@ -26,10 +25,9 @@ router.get("/", async (req, res, next) => {
       }else{
         return res.status(404).send("No matching video games found.")
       }
-    }else{
-      let allVideogames = await getAllVideogames()
-      res.status(200).send(allVideogames)
-    }
+  }else{
+    let allVideogames = await getAllVideogames()
+    res.status(200).send(allVideogames)
   }
   } catch (error) {
     next(error)
