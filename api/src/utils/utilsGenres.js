@@ -23,6 +23,13 @@ const getApiGenres = async () => {
     return filteredApiGenres
 }
 
+const getDbGenres = async () => {
+  return await Genre.findAll();
+}
+
+
+
   module.exports = {
-    getApiGenres
+    getApiGenres,
+    getDbGenres
   }
