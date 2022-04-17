@@ -103,7 +103,6 @@ const getVideogamesByName = async (name) => {
 
 const transformToString = (iterador) => {
   let string = "";
-  console.log(iterador);
   if (iterador !== null) {
     string = string + iterador[0].platform.name;
     for (let i = 1; i < iterador.length; i++) {
