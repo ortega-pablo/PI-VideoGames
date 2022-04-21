@@ -37,8 +37,8 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       isDataBase: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        type: DataTypes.STRING,
+        defaultValue: "true",
       }
     },
     { timestamps: false, freezeTableName: true }

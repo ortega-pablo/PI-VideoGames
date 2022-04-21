@@ -1,36 +1,31 @@
-import axios from "axios"
-export const FETCH_VIDEOGAMES = "FETCH_VIDEOGAMES"
-export const SEARCH_VIDEOGAMES = "SEARCH_VIDEOGAMES"
+import axios from "axios";
+export const GET_VIDEOGAMES = "GET_VIDEOGAMES";
+export const ORDER_BY_NAME = "ORDER_BY_NAME";
+export const FILTER_BY_PROVENANCE = "FILTER_BY_PROVENANCE";
 
 
-
-export function fetchVideogames() {
- return function (dispatch) {
-    axios.get("http://localhost:3001/api/videogames")
-    .then((videogames) => {
-      dispatch ({
-        type:FETCH_VIDEOGAMES,
-        payload: videogames.data
-      })
-    })
-    .catch((error) =>{
-      console.log(error)
-    })
- }
+export function getVideogames() {
+  return async function (dispatch) {
+    var videogames = await axios.get("http://localhost:3001/api/videogames");
+    return dispatch({
+      type: GET_VIDEOGAMES,
+      payload: videogames.data,
+    });
+  };
 }
 
-
-export function searchVideogames(search) {
-  return function (dispatch) {
-     axios.get(`http://localhost:3001/api/videogames?name=${search}`)
-     .then((videogames) => {
-       dispatch ({
-         type:SEARCH_VIDEOGAMES,
-         payload: videogames.data
-       })
-     })
-     .catch((error) =>{
-       console.log(error)
-     })
+export function orderByName(payload) {
+  return {
+      type: ORDER_BY_NAME,
+      payload
+    }
   }
- }
+
+
+export function filterVideogamesByProvenance(payload) {
+  return {
+      type: FILTER_BY_PROVENANCE,
+      payload
+    }
+  }
+

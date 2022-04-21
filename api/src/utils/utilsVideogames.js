@@ -22,7 +22,7 @@ const getApiVideogames = async () => {
       name: videogame.name,
       rating: videogame.rating,
       background_image: videogame.background_image,
-      isDataBase: false,
+      isDataBase: "false",
       genres: videogame.genres.map((g) => {
         return {
           id: g.id,
@@ -63,7 +63,7 @@ const getApiVideogamesByName = async (name) => {
       name: videogame.name,
       rating: videogame.rating,
       background_image: videogame.background_image,
-      isDataBase: false,
+      isDataBase: "false",
       genres: videogame.genres.map((g) => {
         return {
           id: g.id,

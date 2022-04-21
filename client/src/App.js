@@ -1,24 +1,19 @@
-import './App.css';
-import Searchbar from './Components/Searchbar';
-//import { Route } from 'react-router-dom';
-//import Nav from './components/Nav/Nav';
-//import CreateVideogame from './Components/CreateVideogame/CreateVideogame';
-import Videogames from './Components/Videogames';
-//import VideogameDetail from './Components/Videogames/Videogames';
+import {Route, Routes } from "react-router-dom";
 
+import "./App.css";
+import LandingPage from "./Components/LandingPage";
+import Searchbar from "./Components/Searchbar";
+import Home from "./Components/Home";
 
 function App() {
   return (
     <div className="App">
-
-        <Searchbar />
-        <Videogames />
-
+      <Routes>
+        <Route exact path="/" element={<LandingPage/>}></Route>
+        <Route  exact path="/home" element={<Home/>}></Route>
+      </Routes>
     </div>
   );
 }
-
-
-
 
 export default App;
