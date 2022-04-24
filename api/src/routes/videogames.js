@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Videogame } = require("../db");
+const { Videogame , Genre , Platform} = require("../db");
 const router = Router();
 const {
   getVideogamesByName,
@@ -16,10 +16,10 @@ router.get("/", async (req, res, next) => {
         v.name.toLowerCase().includes(name.toLowerCase())
       );
       if (filteredVideogames.length >= 1) {
-        await filteredVideogames.sort((o1, o2) => {
-          if (o1.name.length > o2.name.length) {
+        await filteredVideogames.sort((a, b) => {
+          if (a.name.length > b.name.length) {
             return 1;
-          } else if (o1.name.length < o2.name.length) {
+          } else if (a.name.length < b.name.length) {
             return -1;
           } else {
             return 0;
@@ -61,19 +61,30 @@ router.post("/", async (req, res, next) => {
     description,
     released,
     rating,
-    platforms,
+    isDataBase,
+    genres,
+    platforms
   } = req.body;
 
   try {
     const newVideogame = await Videogame.create({
-      id,
       background_image,
       name,
       description,
       released,
       rating,
-      platforms,
     });
+
+    const genresDb = await Genre.findAll({
+      where: {name:genres}
+    })
+    newVideogame.addGenre(genresDb)
+
+    const platformsDb = await Platform.findAll({
+      where: {name:platforms}
+    })
+    newVideogame.addPlatform(platformsDb)
+
     res.status(201).send(newVideogame);
   } catch (error) {
     next(error);

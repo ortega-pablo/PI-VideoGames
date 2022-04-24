@@ -1,13 +1,13 @@
 const { Router } = require("express");
-const { getDbGenres } = require("../utils/utilsGenres");
+const { getDbPlatforms } = require("../utils/utilsPlatforms");
 const router = Router();
 
-// GET https://api.rawg.io/api/genres
 
 router.get("/", async (req, res, next) => {
   try {
-    let allGenres = await getDbGenres();
-    res.status(200).send(allGenres);
+    let allPltforms = await getDbPlatforms();
+    console.log("allPltforms")
+    res.status(200).send(allPltforms);
   } catch (error) {
     next(error);
   }

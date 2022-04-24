@@ -8,7 +8,6 @@ const getApiPlatforms = async () => {
     let allApiPlatforms = await axios.get(`https://api.rawg.io/api/platforms?key=${API_KEY}`)
     let filteredApiPlatforms = await allApiPlatforms.data.results.map((platform) => {
         return{
-            id: platform.id,
             name: platform.name
         }
     })
@@ -22,6 +21,11 @@ const getApiPlatforms = async () => {
     return filteredApiPlatforms
 }
 
+const getDbPlatforms = async () => {
+  return await Platform.findAll();
+}
+
   module.exports = {
-    getApiPlatforms
+    getApiPlatforms,
+    getDbPlatforms
   }

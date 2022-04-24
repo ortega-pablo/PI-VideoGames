@@ -4,13 +4,12 @@ const { DataTypes } = require('sequelize');
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('platform', {
+
     name: {
-        unique: true,
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
-      primaryKey: true,
-    }
+    },
 
   },{ timestamps: false, freezeTableName: true });
 };

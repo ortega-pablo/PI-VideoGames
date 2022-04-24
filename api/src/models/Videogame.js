@@ -20,9 +20,11 @@ module.exports = (sequelize) => {
       },
       released: {
         type: DataTypes.DATEONLY,
+        defaultValue: 2000-00-00,
       },
       rating: {
-        type: DataTypes.DECIMAL,
+        type: DataTypes.FLOAT,
+        defaultValue: 0,
       },
       description: {
         type: DataTypes.STRING,
@@ -31,14 +33,12 @@ module.exports = (sequelize) => {
       background_image: {
         type: DataTypes.TEXT,
         allowNull: false,
+        defaultValue: "https://plantillasdememes.com/img/plantillas/imagen-no-disponible01601774755.jpg",
       },
-      platforms: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
+      
       isDataBase: {
-        type: DataTypes.STRING,
-        defaultValue: "true",
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
       }
     },
     { timestamps: false, freezeTableName: true }

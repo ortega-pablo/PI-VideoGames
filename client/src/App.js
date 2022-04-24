@@ -1,16 +1,21 @@
 import {Route, Routes } from "react-router-dom";
-
+import LandingPage from "./Components/LandingPage/LandingPage";
+import Home from "./Components/Home/Home";
+import CreateVideogame from "./Components/CreateVideogame/CreateVideogame";
 import "./App.css";
-import LandingPage from "./Components/LandingPage";
-import Searchbar from "./Components/Searchbar";
-import Home from "./Components/Home";
+import NotFound from "./Components/NotFound/NotFound";
+import VideogameDetail from "./Components/VideogameDetail/VideogameDetail";
+
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" element={<LandingPage/>}></Route>
-        <Route  exact path="/home" element={<Home/>}></Route>
+        <Route exact path="/" element={<LandingPage/>} />
+        <Route path="/home" element={<Home/>} />
+        <Route path="/home/:id" element={<VideogameDetail/>} />
+        <Route path="/create" element={<CreateVideogame/>} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </div>
   );

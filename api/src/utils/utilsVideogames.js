@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { Videogame, Genre } = require("../db");
+const { Videogame, Genre, Platform } = require("../db");
 require("dotenv").config();
 const { API_KEY } = process.env;
 const { Op } = require("sequelize");
@@ -9,6 +9,7 @@ const { Op } = require("sequelize");
 // GET https://api.rawg.io/api/games/{id}
 
 const getApiVideogames = async () => {
+  
   let allApiVideogames = [];
   for (let i = 1; i < 6; i++) {
     let allApiData = await axios.get(
@@ -25,7 +26,6 @@ const getApiVideogames = async () => {
       isDataBase: "false",
       genres: videogame.genres.map((g) => {
         return {
-          id: g.id,
           name: g.name,
         };
       }),
@@ -39,7 +39,7 @@ const getDbVideogames = async () => {
     attributes: ["id", "name", "rating", "background_image", "isDataBase"],
     include: {
       model: Genre,
-      attributes: ["id", "name"],
+      attributes: ["name"],
       through: {
         attributes: [],
       },
@@ -66,7 +66,6 @@ const getApiVideogamesByName = async (name) => {
       isDataBase: "false",
       genres: videogame.genres.map((g) => {
         return {
-          id: g.id,
           name: g.name,
         };
       }),
@@ -84,13 +83,22 @@ const getDbVideogamesByName = async (name) => {
         [Op.substring]: name,
       },
     },
-    include: {
-      model: Genre,
-      attributes: ["id", "name"],
-      through: {
-        attributes: [],
+    include: [
+      {
+        model: Genre,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
       },
-    },
+      {
+        model: Platform,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    ],
   });
   return videogamesByName;
 };
@@ -125,11 +133,14 @@ const getApiVideogameById = async (id) => {
       rating: apiSearch.data.rating,
       description: apiSearch.data.description,
       background_image: apiSearch.data.background_image,
-      platforms: transformToString(apiSearch.data.platforms),
+      platforms: apiSearch.data.platforms.map((p) => {
+        return {
+          name: p.platform.name,
+        };
+      }),
       isDataBase: false,
       genres: apiSearch.data.genres.map((g) => {
         return {
-          id: g.id,
           name: g.name,
         };
       }),
@@ -143,13 +154,22 @@ const getDbVideogameById = async (videogameId) => {
     where: {
       id: videogameId,
     },
-    include: {
-      model: Genre,
-      attributes: ["id", "name"],
-      through: {
-        attributes: [],
+    include: [
+      {
+        model: Genre,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
       },
-    },
+      {
+        model: Platform,
+        attributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    ],
   });
   return videogameById;
 };
