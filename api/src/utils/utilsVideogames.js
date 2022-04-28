@@ -8,6 +8,7 @@ const { Op } = require("sequelize");
 // GET https://api.rawg.io/api/games?search={game}
 // GET https://api.rawg.io/api/games/{id}
 
+
 const getApiVideogames = async () => {
   
   let allApiVideogames = [];
@@ -208,8 +209,17 @@ const getVideogameById = async (videogameId) => {
   throw new Error("Error, the entered value does not correspond to an ID.");
 };
 
+const deleteVideogame = async (id)=>{
+  if(!id) throw new Error ("missing ID");
+  await Videogame.destroy({
+      where: {id: id}
+  })
+}
+
+
 module.exports = {
   getVideogamesByName,
   getAllVideogames,
   getVideogameById,
+  deleteVideogame,
 };

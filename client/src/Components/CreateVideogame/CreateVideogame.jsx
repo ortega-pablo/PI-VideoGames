@@ -6,6 +6,8 @@ import {
   getPlatforms,
   postVideogame,
 } from "../../redux/actions/index";
+import sty from "./CreateVideogame.module.css"
+
 
 function validate(input) {
   let errors = {};
@@ -23,7 +25,6 @@ function validate(input) {
     if (input.name.length > 25) {
       errors.name = "Max 25 characters";
     }
-    errors.name = "";
   }
 
   if (!input.description) {
@@ -32,23 +33,18 @@ function validate(input) {
     if (input.description.replace(/ /g, "") === "") {
       errors.description = "Please enter a description";
     }
-    errors.description = "";
   }
 
   if (input.rating) {
-    if (input.rating.match(/[^0-9]/)) {
-      errors.rating = "Please enter a number";
-    }
+    
     if (input.rating < 0 || input.rating > 5) {
       errors.rating = "The raiting has a range from 0 to 5";
     }
+  } 
+  if(!input.released){
+    errors.released = "Please enter a date"
   }
 
-  if (input.released) {
-    if (input.released.match(/^\d{1,2}\/\d{1,2}\/\d{2,4}$/)) {
-      errors.released = "Please enter a valid date";
-    }
-  }
   /*   /^((ftp|http|https):\/\/)?www\.([A-z]+)\.([A-z]{2,})/
     Comprueba uno o ninguno de los siguientes: ftp: //, http: // o https: //
     Se requiere www.
@@ -56,26 +52,16 @@ function validate(input) {
     Finalmente, verifica que tenga un dominio y que ese dominio tenga al menos 2 caracteres.
     */
   if (input.background_image) {
-    if (
-      input.background_image.match(
-        /^((ftp|http|https):\/\/)?www\.([A-z]+)\.([A-z]{2,})/
-      )
-    ) {
-      errors.background_image = "Please enter a valid url";
+    if (!input.background_image.match(/((ftp|http|https):\/\/)?([A-z]+)\.([A-z]{2,})/)) {
+      errors.background_image = "Please enter a valid URL";
     }
   }
 
   
-  if(input.platforms[0]){
-      errors.platforms = "";
-    }else{
-      errors.platforms = errors.platforms + ["hola"];
+  if(!input.platforms.length){
+      errors.platforms = "Please select one or more platforms";
     }
-  
-  
-  
 
-  console.log(errors)
   return errors;
 }
 
@@ -85,15 +71,7 @@ export default function CreateVideogame() {
   const platforms = useSelector((state) => state.platforms);
   const navigate = useNavigate();
 
-  const [errors, setErrors] = useState({
-    background_image: "",
-    name: "Please enter a name",
-    description: "Please enter a description",
-    released: "",
-    rating: "",
-    platforms: ["Please select the platform/s"],
-    genres: "",
-  });
+  const [errors, setErrors] = useState({});
 
   const [input, setInput] = useState({
     background_image: "",
@@ -104,7 +82,6 @@ export default function CreateVideogame() {
     platforms: [],
     genres: [],
   });
-
   function handleDeleteGenres(el) {
     setInput({
       ...input,
@@ -116,6 +93,12 @@ export default function CreateVideogame() {
       ...input,
       platforms: input.platforms.filter((platform) => platform !== el),
     });
+    setErrors(
+      validate({
+        ...input,
+        platforms: input.platforms.filter((platform) => platform !== el),
+      })
+    );
     
   }
 
@@ -146,7 +129,7 @@ export default function CreateVideogame() {
     }
   }
   function handleSelectPlatforms(e) {
-    if (!input.platforms.includes(e.target.value)) {
+    if (!input.platforms.includes(e.target.value) && e.target.value !== "Select...") {
       setInput({
         ...input,
         platforms: [...input.platforms, e.target.value],
@@ -156,18 +139,14 @@ export default function CreateVideogame() {
     setErrors(
       validate({
         ...input,
-        [e.target.name]: e.target.value,
+        platforms: [...input.platforms, e.target.value]
       })
     );
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (
-      errors.name === "" &&
-      errors.description === "" &&
-      errors.platforms === ""
-    ) {
+    if (!Object.values(errors).length) {
       dispatch(postVideogame(input));
       setInput({
         background_image: "",
@@ -183,110 +162,112 @@ export default function CreateVideogame() {
     } else {
       alert("Please review the information");
     }
+    
   }
   return (
-    <div>
+    <div className={sty.container}>
+      <div>
       <Link to="/home">
-        <button>Return to Home</button>
+        <button className={sty.btn}>Return to Home</button>
       </Link>
-      <h1>New Videogame</h1>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          <label>Name:</label>
+      </div>
+      <div className={sty.general}>
+
+      <form className={sty.container} onSubmit={(e) => handleSubmit(e)}>
+        
+        <div className={sty.divTitle}>
+          <h1>New Videogame</h1>
+        </div>
+        
+        <div className={sty.divName}>
+          <label className={sty.label}>Name:</label>
           <input
+            className={sty.input}
             type="text"
             value={input.name}
             name="name"
             onChange={(e) => handleChange(e)}
           />
-          {errors?.name && <p>{errors.name}</p>}
-        </div>
-        <div>
-          <label>Description:</label>
-          <input
-            type="text"
-            value={input.description}
-            name="description"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors?.description && <p>{errors.description}</p>}
-        </div>
-        <div>
-          <label>Rating:</label>
-          <input
-            type="text"
-            value={Number(input.rating)}
-            name="rating"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors?.rating && <p>{errors.rating}</p>}
-        </div>
-        <div>
-          <label>Released:</label>
-          <input
-            type="Date"
-            value={input.released}
-            name="released"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors?.released && <p>{errors.released}</p>}
-        </div>
-        <div>
-          <label>Image:</label>
-          <input
-            type="text"
-            value={input.background_image}
-            name="background_image"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors?.background_image && <p>{errors.background_image}</p>}
+          {errors?.name && <p className={sty.errors}>{errors.name}</p>}
         </div>
 
-        <div>
-          <label>Genres:</label>
-          <select id="genres" onChange={(e) => handleSelectGenres(e)}>
-            
-            <option default></option>
+        <div className={sty.divDescription}>
+          <label className={sty.label}>Description:</label>
+          <textarea className={sty.textarea} type="text" value={input.description} name="description" onChange={(e) => handleChange(e)} />
+          {errors?.description && <p className={sty.errors}>{errors.description}</p>}
+        </div>
+
+        <div className={sty.divRating}>
+          <label className={sty.label}>Rating:</label>
+          <input className={sty.input} type="number" value={input.rating} name="rating" onChange={(e) => handleChange(e)} />
+          {errors?.rating && <p className={sty.errors}>{errors.rating}</p>}
+        </div>
+
+        <div className={sty.divReleased}>
+          <label className={sty.label}>Released:</label>
+          <input className={sty.input} type="Date" value={input.released} name="released" min="1900-00-00" max="2050-12-31" onChange={(e) => handleChange(e)} />
+          {errors?.released && <p className={sty.errors}>{errors.released}</p>}
+        </div>
+
+        <div className={sty.divImg}> 
+          <label className={sty.label}>Image:</label>
+          <input className={sty.input} type="text" value={input.background_image} name="background_image" onChange={(e) => handleChange(e)} />
+          {errors?.background_image && <p className={sty.errors}>{errors.background_image}</p>}
+        </div>
+
+        <div className={sty.divGen}>
+          <label className={sty.label}>Genres:</label>
+          <select className={sty.selectGenre} id="genres" onChange={(e) => handleSelectGenres(e)}>
+          <option default>Select...</option>
             {genres.map((genre) => (
               <option value={genre.name}>{genre.name}</option>
             ))}
           </select>
+        </div>
+
+        <div className={sty.divGenres}>
           {input.genres.map((genre) => (
-            <div>
+            <div className={sty.genre}>
               <p>{genre}</p>
-              <button type="button" onClick={() => handleDeleteGenres(genre)}>
-                x
-              </button>
+              <button className={sty.btnGenre} type="button" onClick={() => handleDeleteGenres(genre)} >x</button>
             </div>
           ))}
         </div>
 
-        <div>
-          <label>Platforms:</label>
-          <select id="platforms" onChange={(e) => handleSelectPlatforms(e)}>
-          <option disabled selected="selected">Select...</option>
+        <div className={sty.divPlat}>
+          <label className={sty.label}>Platforms:</label>
+          <select className={sty.selectGenre} id="platforms" onChange={(e) => handleSelectPlatforms(e)}>
+          <option selected>Select...</option>
             {platforms.map((platform) => (
               <option value={platform.name}>{platform.name}</option>
             ))}
           </select>
-          
-          {input.platforms.map((platform) => (
-            <div>
-              <p>{platform}</p>
-              <button
-                type="button"
-                onClick={() => handleDeletePlatforms(platform)}
-              >
-                x
-              </button>
-              
-            </div>
-          ))}
-          {errors?.platforms && <p>{errors.platforms}</p>}
+
+          {errors?.platforms && <p className={sty.errors}>{errors.platforms}</p>}
         </div>
 
-        <button type="submit">Create</button>
+        <div className={sty.divPlatforms}>
+            {input.platforms?.map((platform) => (
+            <div className={sty.genre}>
+              <p>{platform}</p>
+              <button className={sty.btnGenre} type="button" onClick={() => handleDeletePlatforms(platform)}>x</button>
+            </div>
+            ))}
+          </div>
+
+        
       </form>
+      
+      </div>
+
+      {
+        !input.name || !input.description || !input.platforms || input.platforms === 'Select...' || !input.platforms.length ?
+        <button className={sty.btnOff} disabled type="submit">Create</button> :
+      <button className={sty.btn} type="submit"  onClick={(e) => handleSubmit(e)}>Create</button>
+    }
+      
+    
+    
     </div>
   );
 }

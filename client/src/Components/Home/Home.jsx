@@ -11,7 +11,9 @@ import {
 } from "../../redux/actions";
 import Paged from "../Paged/Paged";
 import VideogameCard from "../VideogameCard/VideogameCard";
-import SearchBar from "../SearchBar/SearchBar";
+import  sty from "./Home.module.css"
+import NavBar from "../NavBar/NavBar";
+
 
 export default function Home() {
   const dispatch = useDispatch("");
@@ -33,13 +35,10 @@ export default function Home() {
 
   useEffect(() => {
     dispatch(getVideogames());
-    dispatch(getGenres()) // iguial que map dispatch to props
+    dispatch(getGenres())
   }, [dispatch]);
 
-  function handleClick(e) {
-    e.preventDefault();
-    dispatch(getVideogames());
-  }
+  
 
   function handleSortName(e) {
     e.preventDefault();
@@ -63,47 +62,52 @@ export default function Home() {
 
   return (
     <div>
-      <div>
-        <button onClick={(e) => { handleClick(e)}} >Recharge all</button>
-        <SearchBar />
-        <Link to={"/create"}><button>Create new Videogame</button></Link>
-      </div>
+      
+      <NavBar/>
 
-      <div>
+      <div className={sty.filter}>
         <p>
+          <span>
           Order:
-          <select onChange={(e) => handleSortName(e)}>
-            <option value="">Select</option>
-            <option value="asc">A to Z</option>
-            <option value="desc">Z to A</option>
+          <select onChange={(e) => handleSortName(e)} className={sty.select}>
+            <option value="" className={sty.option}>Select</option>
+            <option value="asc" className={sty.option}>A to Z</option>
+            <option value="desc" className={sty.option}>Z to A</option>
           </select>
+          </span>
+          <span>
           Rating:
-          <select onChange={(e) => handleSortRating(e)}>
-            <option value="">Select</option>
-            <option value="ascendant">Ascendant</option>
-            <option value="descendant">Descendant</option>
+          <select onChange={(e) => handleSortRating(e)} className={sty.select}>
+            <option value="" className={sty.option}>Select</option>
+            <option value="ascendant" className={sty.option}>Ascendant</option>
+            <option value="descendant" className={sty.option}>Descendant</option>
           </select>
+          </span>
+          <span>
           Genre:
-          <select onChange={(e) => handleFilterGenre(e)}>
-          <option value="all">All</option>
+          <select onChange={(e) => handleFilterGenre(e)} className={sty.select}>
+          <option value="all" className={sty.option}>All</option>
             {genres.map((genre) => (
-              <option value={genre.name}>{genre.name}</option>
+              <option value={genre.name} className={sty.option}>{genre.name}</option>
             ))}
           </select>
+          </span>
+          <span>
           Provenance:
-          <select onChange={(e) => handleFilterProvenance(e)}>
-            <option value="all">All</option>
-            <option value="true">Created</option>
-            <option value="false">Existing</option>
+          <select onChange={(e) => handleFilterProvenance(e)} className={sty.select}>
+            <option value="all" className={sty.option}>All</option>
+            <option value={true} className={sty.option}>Created</option>
+            <option value="false" className={sty.option}>Existing</option>
           </select>
+          </span>
         </p>
       </div>
 
-      <div>
+      <div className={sty.cards}>
         {currentVideogames.map((videogames) => {
           return (
             <div key={videogames.id}>
-              <Link to={"/home/" + videogames.id}>
+              <Link to={"/home/" + videogames.id} className={sty.link}>
               <VideogameCard
                 isDataBase={videogames.isDatabase}
                 id={videogames.id}

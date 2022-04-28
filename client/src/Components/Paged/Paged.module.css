@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    height: 4rem;
+    width: 30%;
+}
+
+.btn {
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    color: #23a6d5;
+    justify-items: flex-end;
+    background-color: #0c0c0c94;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+.btn:focus {
+    transition: ease-in-out .3s;
+    color: #0a0a0afd;
+    background-color: #23a6d5;
+}
+.btn:hover {
+    transition: ease-in-out .3s;
+    color: #0a0a0afd;
+    background-color: #23a6d5;
+}

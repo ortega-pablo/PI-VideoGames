@@ -102,17 +102,25 @@ function rootReducer(state = initialState, action) {
           }
         })
       );
-
       return {
         ...state,
         videogames:
           action.payload === "all" ? allGenreVideogames : videogamesFiltered,
       };
+
+      
     case GET_DETAILS:
       return {
         ...state,
         detail: action.payload,
       };
+
+      case "DELETE_VIDEOGAME":{
+        return{
+            ...state
+        }
+    }
+
     default:
       return state;
   }

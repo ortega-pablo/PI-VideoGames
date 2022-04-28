@@ -1,0 +1,277 @@
+.container {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.general {
+  display: flex;
+  align-items: top;
+  justify-content: center;
+  flex-direction: column;
+  height: 85%;
+  width: 80%;
+  background: #3d3b35dc;
+  border-radius: 18px;
+  margin-bottom: 1rem;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9);
+  border: 2px solid;
+  border-color: #c8c6c680;
+  
+}
+
+.divTitle {
+  width: 100%;
+  height: 15%;
+  justify-content: center;
+  align-items: top;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(0deg, #e73c7e, #23a6d5, #8b006fc7);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: 0;
+}
+@keyframes fluid {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.divName {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: stretch;
+  width: 90%;
+  height: 8%;
+  position: 1;
+}
+
+.divDescription {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: stretch;
+  width: 90%;
+  height: 20%;
+  position: 2;
+}
+
+.divRating {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: stretch;
+  width: 90%;
+  height: 8%;
+  position: 3;
+}
+
+.divReleased {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: stretch;
+  width: 90%;
+  height: 8%;
+  position: 4;
+}
+
+.divImg {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: stretch;
+  width: 90%;
+  height: 8%;
+  position: 5;
+}
+
+.divGen {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: stretch;
+  width: 90%;
+  height: 8%;
+  position: 6;
+}
+
+.divGenres {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 90%;
+  height: 8%;
+  position: 7;
+}
+
+.divPlat {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: stretch;
+  width: 90%;
+  height: 8%;
+  position: 8;
+}
+.divPlatforms {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  width: 90%;
+  height: 8%;
+  position: 9;
+}
+
+.label {
+  font-weight: bold;
+  width: 25%;
+  justify-content: left;
+  text-align: left;
+  font-size: 1.2rem;
+  color: #999891;
+  order: 0;
+}
+
+.input {
+  width: 45%;
+  padding: 0.5rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 0.8rem;
+  margin-left: 1rem;
+  outline: none;
+  order: 1;
+}
+
+.selectGenre {
+  width: 45%;
+  height: 80%;
+  margin-left: 17px;
+  padding: 0.5rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  outline: none;
+  order: 1;
+}
+
+.textarea {
+  width: 45%;
+  height: 80%;
+  margin-left: 17px;
+  padding: 0.5rem;
+  border: 1px solid #e1e1e1;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  outline: none;
+  order: 1;
+}
+
+.errors {
+  width: 20%;
+  color: rgb(232, 6, 6);
+  font-size: 1rem;
+  text-align: center;
+  order: 2;
+}
+
+.genre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #8b0070;
+  height: fit-content;
+  border-radius: 0.8rem;
+  background-color: #c8c6c662;
+  height: 30px;
+}
+
+.btn {
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.8rem;
+  width: 10rem;
+  height: 2.5rem;
+  margin: 4px 30px;
+  color: #f2f3f7;
+  background: #8b0070;
+  animation: fluid 30s ease-in-out infinite;
+  background: linear-gradient(-45deg, #e73c7e, #23a6d5, #8b006fc7);
+  background-size: 300%;
+}
+
+@keyframes fluid {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.btn:hover {
+  transition: ease-in-out 0.3s;
+  transform: scale(1.15);
+}
+
+.btn {
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.8rem;
+  width: 10rem;
+  height: 2.5rem;
+  margin: 4px 30px;
+  color: #f2f3f7;
+  background: #8b0070;
+  animation: fluid 30s ease-in-out infinite;
+  background: linear-gradient(-45deg, #e73c7e, #23a6d5, #8b006fc7);
+  background-size: 300%;
+}
+
+@keyframes fluid {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.btn:hover {
+  transition: ease-in-out 0.3s;
+  transform: scale(1.15);
+}
+
+.btnGenre {
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  background: #8b0070;
+  background: linear-gradient(-45deg, #e73c7e, #23a6d5, #8b006fc7);
+  background-size: 300%;
+}
+
+.btnGenre:hover {
+  background: linear-gradient(-45deg, #8b006fc7, #23a6d5, #e73c7e);
+}

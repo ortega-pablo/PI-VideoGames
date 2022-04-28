@@ -6,6 +6,7 @@ describe('Videogame model', () => {
     .catch((err) => {
       console.error('Unable to connect to the database:', err);
     }));
+
   describe('Validators', () => {
     beforeEach(() => Videogame.sync({ force: true }));
     describe('name', () => {
@@ -15,7 +16,7 @@ describe('Videogame model', () => {
           .catch(() => done());
       });
       it('should work when its a valid name', () => {
-        Recipe.create({ name: 'Super Mario Bros' });
+        Recipe.create({ name: 'Super Mario Bros',description:"hola" });
       });
     });
   });

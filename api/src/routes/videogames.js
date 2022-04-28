@@ -5,7 +5,10 @@ const {
   getVideogamesByName,
   getAllVideogames,
   getVideogameById,
+  deleteVideogame,
 } = require("../utils/utilsVideogames");
+
+
 
 router.get("/", async (req, res, next) => {
   try {
@@ -40,7 +43,9 @@ router.get("/", async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}),
+})
+
+
   router.get("/:id", async (req, res, next) => {
     const videogameId = req.params.id;
     try {
@@ -53,42 +58,55 @@ router.get("/", async (req, res, next) => {
     }
   });
 
+  
+
 router.post("/", async (req, res, next) => {
   const {
-    id,
     background_image,
     name,
     description,
     released,
     rating,
-    isDataBase,
     genres,
     platforms
   } = req.body;
 
   try {
     const newVideogame = await Videogame.create({
-      background_image,
       name,
       description,
+      background_image,
       released,
       rating,
+      genres,
     });
-
-    const genresDb = await Genre.findAll({
-      where: {name:genres}
-    })
-    newVideogame.addGenre(genresDb)
 
     const platformsDb = await Platform.findAll({
       where: {name:platforms}
     })
     newVideogame.addPlatform(platformsDb)
 
+    const genresDb = await Genre.findAll({
+      where: {name:genres}
+    })
+    newVideogame.addGenre(genresDb)
+
     res.status(201).send(newVideogame);
   } catch (error) {
     next(error);
   }
 });
+
+
+router.delete("/:id",async (req,res,next)=>{
+    const videogameId = req.params.id
+    try {
+        await deleteVideogame(videogameId)
+        res.status(200).send("Videogame removed")
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 module.exports = router;

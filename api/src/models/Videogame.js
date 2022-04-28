@@ -32,13 +32,13 @@ module.exports = (sequelize) => {
       },
       background_image: {
         type: DataTypes.TEXT,
-        allowNull: false,
         defaultValue: "https://plantillasdememes.com/img/plantillas/imagen-no-disponible01601774755.jpg",
       },
       
       isDataBase: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: true,
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "true",
       }
     },
     { timestamps: false, freezeTableName: true }

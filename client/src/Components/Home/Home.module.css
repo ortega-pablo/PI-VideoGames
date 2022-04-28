@@ -1,0 +1,57 @@
+body{
+    width: 100%;
+    height: 100%;
+    background-image: url("../../media/BackGroundHome.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+}
+
+.link{
+    text-decoration: none;
+}
+.cards {
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+    gap: 10px;
+    margin: 0 auto 2rem auto;
+    padding: 2rem;
+    max-width: 100%;
+}
+
+
+.filter {
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(300px,1fr));;
+    align-items: center;
+    justify-content:space-around;
+    font-size: 1.1rem;
+    margin: 0 auto 1rem auto;
+    border: none;
+    cursor: pointer;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 70%;
+    height: 4rem;
+    background: #37206386;
+    color: rgb(12, 139, 229);
+
+}
+
+.select{
+    background-color: #c8c6c68f;
+    width: 15%;
+    height: 70%;
+    border-top: none;
+    border-bottom: none;
+    text-align:center;
+    color: #F7F6F2;
+    outline: none;
+}
+
+.option{
+    background-color: #c8c6c670;
+    color: black;
+    text-align: left;
+}

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getVideogamesByName } from "../../redux/actions/index";
+import sty from "./SearchBar.module.css";
 
 export default function SearchBar() {
   const dispatch = useDispatch();
@@ -16,13 +17,19 @@ export default function SearchBar() {
   }
 
   return (
-    <div>
+    <div className={sty.searchbar}>
       <input
+        className={sty.input}
         type="text"
-        placeholder="Search..."
+        value={name}
+        placeholder="What are you looking for?"
         onChange={(e) => handleImputChange(e)}
       />
-      <button type="submit" onClick={(e) => handleSubmit(e)}>
+      <button
+        className={sty.btnSearch}
+        type="submit"
+        onClick={(e) => handleSubmit(e)}
+      >
         Search
       </button>
     </div>

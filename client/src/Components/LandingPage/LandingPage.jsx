@@ -1,13 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import sty from "./LandingPage.module.css"
 
 export default function LandingPage() {
   return (
-    <div>
-      <h1>Welcome</h1>
+    <div className={sty.container}>
+      <div>
+      <h1 className={sty.title}>Welcome</h1>
       <Link to="/home">
-        <button>Enter</button>
+        <button className={sty.btn}>Enter</button>
       </Link>
+      </div>
+      
     </div>
   )
 }

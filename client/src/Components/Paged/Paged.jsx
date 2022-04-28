@@ -1,4 +1,5 @@
 import React from 'react'
+import sty from "./Paged.module.css"
 
 export default function Paged({videogamesPerPage, allVideogames, paged}) {
 
@@ -9,15 +10,12 @@ export default function Paged({videogamesPerPage, allVideogames, paged}) {
     }
 
     return (
-    <nav>
-        <ul>
+    <div className={sty.container}>
             { pageNumbers &&
             pageNumbers.map(number => (
-                <li key={number}>
-                    <a onClick={()=>paged(number)}>{number}</a>
-                </li>
+                <button key={number} className={sty.btn} onClick={()=>paged(number)}>{number}</button>
+                
             ))}
-        </ul>
-    </nav>
+    </div>
   )
 }
