@@ -14,7 +14,7 @@ export const GET_DETAILS = "GET_DETAILS";
 export function getVideogames() {
   return async function (dispatch) {
     try {
-      var videogames = await axios.get("http://localhost:3001/api/videogames");
+      var videogames = await axios.get("/api/videogames");
       return dispatch({
         type: GET_VIDEOGAMES,
         payload: videogames.data,
@@ -29,7 +29,7 @@ export function getVideogamesByName(name) {
   return async function (dispatch) {
     try {
       var videogames = await axios.get(
-        `http://localhost:3001/api/videogames?name=${name}`
+        `/api/videogames?name=${name}`
       );
       return dispatch({
         type: GET_VIDEOGAMES_BY_NAME,
@@ -44,7 +44,7 @@ export function getVideogamesByName(name) {
 export function getGenres() {
   return async function (dispatch) {
     try {
-      var genres = await axios.get("http://localhost:3001/api/genres");
+      var genres = await axios.get("/api/genres");
       return dispatch({
         type: GET_GENRES,
         payload: genres.data,
@@ -58,7 +58,7 @@ export function getGenres() {
 export function getPlatforms() {
   return async function (dispatch) {
     try {
-      var platforms = await axios.get("http://localhost:3001/api/platforms");
+      var platforms = await axios.get("/api/platforms");
       return dispatch({
         type: GET_PLATFORMS,
         payload: platforms.data,
@@ -73,7 +73,7 @@ export function postVideogame(payload) {
   return async function (dispatch) {
     try {
       const newVideogame = await axios.post(
-        "http://localhost:3001/api/videogames",
+        "/api/videogames",
         payload
       );
       return newVideogame;
@@ -114,7 +114,7 @@ export function filterVideogamesByGenre(payload) {
 export function getDetail(id) {
   return async function (dispatch) {
     try {
-      var videogameDetail = await axios.get(`http://localhost:3001/api/videogames/${id}`,id);
+      var videogameDetail = await axios.get(`/api/videogames/${id}`,id);
       return dispatch({
         type: GET_DETAILS,
         payload: videogameDetail.data,
@@ -128,7 +128,7 @@ export function getDetail(id) {
 export function deleteVideogame(id){
   return async function (dipatch) {
       try {
-          await axios.delete(`http://localhost:3001/api/videogames/${id}`)
+          await axios.delete(`/api/videogames/${id}`)
       } catch (error) {
           console.log(error)
       }

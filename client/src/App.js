@@ -7,6 +7,8 @@ import NotFound from "./Components/NotFound/NotFound";
 import VideogameDetail from "./Components/VideogameDetail/VideogameDetail";
 
 
+
+
 function App() {
   return (
     <div className="App">
